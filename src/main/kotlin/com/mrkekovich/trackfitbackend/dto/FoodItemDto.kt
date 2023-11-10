@@ -1,6 +1,7 @@
 package com.mrkekovich.trackfitbackend.dto
 
 import com.mrkekovich.trackfitbackend.models.FoodItemEntity
+import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 
@@ -15,20 +16,20 @@ sealed class FoodItemDto {
 
     abstract val commentary: String?
 
-    @get:NotBlank
     @get:NotNull
+    @get:Min(0, message = "Calories must be positive or 0")
     abstract val calories: Int?
 
-    @get:NotBlank
     @get:NotNull
+    @get:Min(0, message = "Protein must be positive or 0")
     abstract val protein: Int?
 
-    @get:NotBlank
     @get:NotNull
+    @get:Min(0, message = "Carbs must be positive or 0")
     abstract val carbs: Int?
 
-    @get:NotBlank
     @get:NotNull
+    @get:Min(0, message = "Fat must be positive or 0")
     abstract val fat: Int?
 
     open val id: String? = null
