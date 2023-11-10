@@ -1,36 +1,36 @@
 package com.mrkekovich.trackfitbackend.controllers
 
-import com.mrkekovich.trackfitbackend.dto.FoodItemDto
-import com.mrkekovich.trackfitbackend.services.FoodItemService
+import com.mrkekovich.trackfitbackend.dto.FoodDto
+import com.mrkekovich.trackfitbackend.services.FoodService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/food-items")
-class FoodItemController(
-    val foodItemService: FoodItemService
+@RequestMapping("/foods")
+class FoodController(
+    val foodService: FoodService
 ) {
     @PostMapping
     fun create(
         @Validated
         @RequestBody
-        foodItemDto: FoodItemDto.Request
-    ): ResponseEntity<FoodItemDto.Response> =
-        foodItemService.create(foodItemDto)
+        foodDto: FoodDto.Request
+    ): ResponseEntity<FoodDto.Response> =
+        foodService.create(foodDto)
 
     @GetMapping
-    fun getAll(): ResponseEntity<List<FoodItemDto.Response>> =
-        foodItemService.getAll()
+    fun getAll(): ResponseEntity<List<FoodDto.Response>> =
+        foodService.getAll()
 
     @GetMapping("/{id}")
     fun getById(
         @Validated
         @PathVariable
         id: String
-    ): ResponseEntity<FoodItemDto.Response> =
-        foodItemService.getById(id = id)
+    ): ResponseEntity<FoodDto.Response> =
+        foodService.getById(id = id)
 
     @PatchMapping("/{id}")
     fun update(
@@ -40,11 +40,11 @@ class FoodItemController(
 
         @Validated
         @RequestBody
-        foodItemDto: FoodItemDto.Request
-    ): ResponseEntity<FoodItemDto.Response> =
-        foodItemService.update(
+        foodDto: FoodDto.Request
+    ): ResponseEntity<FoodDto.Response> =
+        foodService.update(
             id = id,
-            foodItemDto = foodItemDto
+            foodDto = foodDto
         )
 
     @DeleteMapping("/{id}")
@@ -53,7 +53,7 @@ class FoodItemController(
         @PathVariable
         id: String
     ): ResponseEntity<HttpStatus> =
-        foodItemService.delete(id = id)
+        foodService.delete(id = id)
 }
 
 

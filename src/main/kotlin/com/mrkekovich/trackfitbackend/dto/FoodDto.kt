@@ -1,11 +1,17 @@
 package com.mrkekovich.trackfitbackend.dto
 
-import com.mrkekovich.trackfitbackend.models.FoodItemEntity
+import com.mrkekovich.trackfitbackend.models.FoodEntity
 import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 
-sealed class FoodItemDto {
+/**
+ * Food item dto
+ *
+ * A sealed class with abstract values.
+ * Used as a parent class for Response and Request data classes.
+ */
+sealed class FoodDto {
     @get:NotBlank
     @get:NotNull
     abstract val name: String?
@@ -34,8 +40,15 @@ sealed class FoodItemDto {
 
     open val id: String? = null
 
-    fun toEntity(): FoodItemEntity {
-        return FoodItemEntity(
+    /**
+     * To entity
+     *
+     * Converts data class to entity, using its values.
+     *
+     * @return The converted FoodEntity object.
+     */
+    fun toEntity(): FoodEntity {
+        return FoodEntity(
             name = name,
             description = description,
             image = image,
@@ -48,8 +61,16 @@ sealed class FoodItemDto {
         )
     }
 
-    fun toEntity(id: String): FoodItemEntity {
-        return FoodItemEntity(
+    /**
+     * To Entity
+     *
+     * Converts a data class to a food entity object.
+     *
+     * @param id The ID of the entity.
+     * @return The converted FoodEntity object.
+     */
+    fun toEntity(id: String): FoodEntity {
+        return FoodEntity(
             name = name,
             description = description,
             image = image,
@@ -62,6 +83,11 @@ sealed class FoodItemDto {
         )
     }
 
+    /**
+     * Response DTO
+     *
+     * Used to validate output data.
+     */
     data class Response(
         override val name: String?,
         override val description: String?,
@@ -75,8 +101,8 @@ sealed class FoodItemDto {
         @NotNull
         @NotBlank
         override val id: String?
-    ) : FoodItemDto() {
-        constructor(entity: FoodItemEntity) : this(
+    ) : FoodDto() {
+        constructor(entity: FoodEntity) : this(
             name = entity.name,
             description = entity.description,
             image = entity.image,
@@ -89,6 +115,11 @@ sealed class FoodItemDto {
         )
     }
 
+    /**
+     * Request
+     *
+     * Used to validate input data.
+     */
     data class Request(
         override val name: String?,
         override val description: String?,
@@ -98,7 +129,7 @@ sealed class FoodItemDto {
         override val protein: Int?,
         override val carbs: Int?,
         override val fat: Int?,
-    ) : FoodItemDto()
+    ) : FoodDto()
 }
 
 

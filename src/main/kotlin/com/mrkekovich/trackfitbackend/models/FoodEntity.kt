@@ -3,8 +3,8 @@ package com.mrkekovich.trackfitbackend.models
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "food_items")
-class FoodItemEntity(
+@Table(name = "foods")
+class FoodEntity(
     @Column(name = "name")
     val name: String?,
 
